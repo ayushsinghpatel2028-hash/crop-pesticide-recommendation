@@ -3,7 +3,7 @@ import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -40,6 +40,7 @@ models = {
 }
 
 accuracies = {}
+class_metrics = {}
 
 
 for name, model in models.items():
@@ -51,10 +52,12 @@ for name, model in models.items():
     print(f"{name} Accuracy: {acc}")
 
     accuracies[name] = acc
+    class_metrics[name] = classification_report(y_test, preds, output_dict=True)
 
     joblib.dump(model, f"models/{name}.pkl")
 
 joblib.dump(accuracies, "models/accuracies.pkl")
+joblib.dump(class_metrics, "models/class_metrics.pkl")
 
 joblib.dump(le_crop, "models/le_crop.pkl")
 joblib.dump(le_pest, "models/le_pest.pkl")

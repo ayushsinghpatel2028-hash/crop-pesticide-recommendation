@@ -8,3 +8,5 @@ streamlit
 joblib
 requests
 matplotlib
+plotly
+python-pptx
